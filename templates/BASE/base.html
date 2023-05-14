@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'images/favico.png' %}">
+    <link href="{% static 'css/master.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/carosel.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/registroEmpleados.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/tablacliente.css' %}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.6.1.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <script src="{% static 'js/validar.js' %}"></script>
+    <script src="{% static 'js/validarsueldos.js' %}"></script>
+    <script src="{% static 'js/fotoreciente.js' %}"></script>
+    <script src="{% static 'js/actualizarListas.js' %}"></script>
+    
+    <script>
+        $(function () {
+            // Sidebar toggle behavior
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+            });
+
+        });
+    </script>
+
+
+
+    <title>{% block title%} {%endblock%}</title>
+</head>
+
+<body>
+
+    <!-- Vertical navbar -->
+    <div class=" vertical-nav bg-white" id="sidebar">
+        <div class="py-4 px-3 mb-4 bg-light">
+            <div class="media d-flex align-items-center"><img src="{% static 'images/Login.jpg' %}" alt="..." width="70"
+                    height="70">
+                <div class="media-body">
+                    <h4 class="m-0">Sistema RRHH</h4>
+                </div>
+            </div>
+        </div>
+
+        <p class="text-gray font-weight-bold text-uppercase px-3  pb-6 mb-0">Menú</p>
+
+        <ul class="nav flex-column bg-white mb-0">
+            <li class="nav-item">
+                <a href="{% url 'masterpage'%}" class="nav-link text-dark font-italic bg-light">
+                    <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
+                    Inicio
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'registrarEmpleados'%}" class="nav-link text-dark font-italic">
+                    <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
+                    Registrar empleados
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'agregarClientes' %}" class="nav-link text-dark font-italic">
+                    <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
+                    Registrar Clientes
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{% url 'gestionEmpleados'%}" class="nav-link text-dark font-italic">
+                    <i class="fa fa-table mr-3 text-primary"aria-hidden="true"></i>
+                    Listado Empleados 
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{% url 'gestionClientes'%}" class="nav-link text-dark font-italic">
+                    <i class="fa fa-table mr-3 text-primary"aria-hidden="true"></i>
+                    Listado Clientes 
+                </a>
+            </li>
+            
+
+            <li class="nav-item">
+                <a href="{% url 'reportesEmpleado'%}"" class="nav-link text-dark font-italic">
+                    <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
+                    Reportes Empleados
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{% url 'reportesCliente'%}" class="nav-link text-dark font-italic">
+                    <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
+                    Reportes Clientes
+                </a>
+            </li>
+        </ul>
+
+        <p class="text-gray font-weight-bold text-uppercase px-3 medium py-2  mb-0">Dashboard</p>
+        
+        <ul class="nav flex-column bg-white mb-0">
+            <li class="nav-item">
+                <a href="{% url 'dasboardEmpleados'%}" class="nav-link text-dark font-italic">
+                    <i class="fa fa-bar-chart mr-3 text-primary fa-fw"></i>
+                    Gráfico Empleados
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'dasboardClientes'%}" class="nav-link text-dark font-italic">
+                    <i class="fa fa-bar-chart mr-3 text-primary fa-fw"></i>
+                    Gráfico Clientes
+                </a>
+            </li>
+<hr>
+<div class="text-center">
+           <a href="{% url 'signout'%}" ><button type="button" class="btn btn-primary"><span class="bi bi-box-arrow-left"></span> Cerrar
+                Sesión</button></a>
+        </ul>
+
+    </div>
+    </div >
+
+
+            <!-- End vertical navbar -->
+            {% block content %}
+
+        {% endblock %}

@@ -1,0 +1,906 @@
+{% extends 'BASE/base.html'%}
+{% load static %}
+
+{% block content %}
+<!-- Page content holder -->
+<div class="page-content p-5" id="content">
+    <!-- ==== Toggle button start === -->
+    <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i
+            class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Menú</small></button>
+    <!-- ==== Toggle button end === -->
+    <!-- ===================================== Seccion Contenedor Inicio ======================================== -->
+    <div class="container">
+
+        <h2 style="text-align: center;">Editar Empleado</h2>
+        <div class="row">
+            <ul class="nav nav-pills">
+                <li class="active"><a data-toggle="tab" href="#generales" aria-expanded="true"
+                        class="boton-tab boton-color">Generales</a></li>
+
+                <li class=""><a data-toggle="tab" href="#direccionpersonal" aria-expanded="false"
+                        class="boton-tab boton-color">Dirección Personal</a></li>
+
+                <li class=""><a data-toggle="tab" href="#estudios" aria-expanded="false" class="boton-tab boton-color">Estudios</a>
+                </li>
+
+                <li class=""><a data-toggle="tab" href="#familiares" aria-expanded="false"
+                        class="boton-tab boton-color">Familiares</a></li>
+
+                <li class=""><a data-toggle="tab" href="#penales" aria-expanded="false" class="boton-tab boton-color">Antecedentes
+                        Penales</a></li>
+
+                <li class=""><a data-toggle="tab" href="#policiales" aria-expanded="false"
+                        class="boton-tab boton-color">Antecedentes Policiales</a></li>
+                        
+                <li><a data-toggle="tab" href="#otrosdatos" class="boton-tab boton-color">Otros Datos</a></li>
+            </ul>
+            <hr>
+        </div>
+
+        <form action="{% url 'editarEmpleados' empleado.ID_EMP %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+        <div class="tab-content">
+                <!-- generales start -->
+                <div id="generales" class="tab-pane fade show active">
+                    <link href="{% static 'css/fotoreciente.css' %}" rel="stylesheet" type="text/css" />
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-group">
+                                <img id="fotorec" class="img-responsive" style="max-height: 600px; max-width: 600px;"
+                                    src="{% static 'images/fotodefault.png' %}">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="imgInp">Foto Reciente</label>
+                                <input type="file" class="form-control" id="txtimgInp" name="txtimgInp" accept="image/png"
+                                    onchange="readURL(this);">
+                            </div>
+
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2"></label>
+                                <input type="hidden" id="form7Example2" class="form-control" maxlength="13" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 column  -->
+
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Tipo de Documento</label>
+                                <select class="form-control" id="id_tipo_documento" name="id_tipo_documento" data-width="100%">
+                                    <option value="">{{empleado.TDOC}}</option>
+                                    <option value="dpi">DPI</option>
+                                    <option value="pasaporte">PASAPORTE</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Documento de Identificación</label>
+                                <input type="text" id="txtdocIde" name="txtdocIde" class="form-control" maxlength="13"
+                                    onkeypress="return validarNumero(event)" value="{{empleado.NDOC}}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 column  -->
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Departamento de emisión DPI</label>
+                                <select class="form-control" id="id_departamento_dpi" name="id_departamento_dpi" data-width="100%"
+                                    name="id_departamento_dpi">
+                                    <option value="">{{empleado.DDOC}}</option>
+                                    <option value="alta_verapaz">Alta Verapaz</option>
+                                    <option value="baja_verapaz">Baja Verapaz</option>
+                                    <option value="chimaltenango">Chimaltenango</option>
+                                    <option value="chiquimula">Chiquimula</option>
+                                    <option value="el_progreso">El Progreso</option>
+                                    <option value="escuintla">Escuintla</option>
+                                    <option value="guatemala">Guatemala</option>
+                                    <option value="huehuetenango">Huehuetenango</option>
+                                    <option value="izabal">Izabal</option>
+                                    <option value="jalapa">Jalapa</option>
+                                    <option value="jutiapa">Jutiapa</option>
+                                    <option value="peten">Petén</option>
+                                    <option value="quetzaltenango">Quetzaltenango</option>
+                                    <option value="quiche">Quiché</option>
+                                    <option value="retalhuleu">Retalhuleu</option>
+                                    <option value="sacatepequez">Sacatepéquez</option>
+                                    <option value="san_marcos">San Marcos</option>
+                                    <option value="santa_rosa">Santa Rosa</option>
+                                    <option value="solola">Sololá</option>
+                                    <option value="suchitepequez">Suchitepéquez</option>
+                                    <option value="totonicapan">Totonicapán</option>
+                                    <option value="zacapa">Zacapa</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Municipio de emisión DPI</label>
+                                <select class="form-control" id="id_municipio_dpi"  name="id_municipio_dpi"  data-live-search="true">
+                                    <option > {{empleado.MDOC}}</option>
+                                </select>
+                                <script src="{% static 'js/municipios.js' %}"></script>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 column  -->
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Primer Nombre</label>
+                                <input type="text" id="txtpnombre" name="txtpnombre" class="form-control" maxlength="35" value="{{empleado.PNOM}}" />
+
+                            </div>
+
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Segundo o demás nombres</label>
+                                <input type="text" id="txtsenombre" name="txtsenombre" class="form-control" maxlength="35" value="{{empleado.SNOM}}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 column -->
+                    <!-- 2 column  -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Primer Apellido</label>
+                                <input type="text" id="txtpape" name="txtpape" class="form-control" maxlength="35" value="{{empleado.PAPE}}">
+                            </div>
+
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Segundo Apellido</label>
+                                <input type="text" id="txtsape" name="txtsape" class="form-control" maxlength="35" value="{{empleado.SAPE}}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 column  -->
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Apellido de Casada</label>
+                                <input type="text" id="txtAcasa" name="txtAcasa" class="form-control" maxlength="35" value="{{empleado.ACAS}}"/>
+                            </div>
+
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Género</label>
+                                <select class="form-control" id="id_genero" name="id_genero"  data-width="100%">
+                                    <option value="">{{empleado.GEN}}</option>
+                                    <option value="masculino">Masculino</option>
+                                    <option value="femenino">Femenino</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 column -->
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Fecha de nacimiento</label>
+                                <input type="date" id="txtfenac" name="txtfenac" class="form-control" value="{{empleado.FNAC}}"/>
+                            </div>
+
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Estado Civil</label>
+                                <select class="form-control" id="id_civil" name="id_civil" data-width="100%">
+                                    <option value=" ">{{empleado.ECIVIL}}</option>
+                                    <option value="casado">Casado (a)</option>
+                                    <option value="soltero">Soltero (a)</option>
+                                    <option value="union_de_hecho">Union de hecho</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 column -->
+                    <!-- 3 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Nacionalidad de nacimiento</label>
+                                <select class="form-control" id="id_nacionalidad" name="id_nacionalidad"  data-width="100%">
+                                    <option value="">{{empleado.NNAC}}</option>
+                                    <option value="guatemalteco">Guatemalteco (a)</option>
+                                    <option value="extranjero">Extranjero (a)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Departamento de nacimiento</label>
+                                <select class="form-control" id="id_depto_nac" name="id_depto_nac" data-width="100%">
+                                    <option value="">{{empleado.DNAC}}</option>
+                                    <option value="alta_verapaz">Alta Verapaz</option>
+                                    <option value="baja_verapaz">Baja Verapaz</option>
+                                    <option value="chimaltenango">Chimaltenango</option>
+                                    <option value="chiquimula">Chiquimula</option>
+                                    <option value="el_progreso">El Progreso</option>
+                                    <option value="escuintla">Escuintla</option>
+                                    <option value="guatemala">Guatemala</option>
+                                    <option value="huehuetenango">Huehuetenango</option>
+                                    <option value="izabal">Izabal</option>
+                                    <option value="jalapa">Jalapa</option>
+                                    <option value="jutiapa">Jutiapa</option>
+                                    <option value="peten">Petén</option>
+                                    <option value="quetzaltenango">Quetzaltenango</option>
+                                    <option value="quiche">Quiché</option>
+                                    <option value="retalhuleu">Retalhuleu</option>
+                                    <option value="sacatepequez">Sacatepéquez</option>
+                                    <option value="san_marcos">San Marcos</option>
+                                    <option value="santa_rosa">Santa Rosa</option>
+                                    <option value="solola">Sololá</option>
+                                    <option value="suchitepequez">Suchitepéquez</option>
+                                    <option value="totonicapan">Totonicapán</option>
+                                    <option value="zacapa">Zacapa</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Municipio de nacimiento</label>
+                                <select class="form-control" id="id_muni_nac" name="id_muni_nac" data-live-search="true">
+                                    <option value=""> {{empleado.MNAC}}</option>
+                                </select>
+                                <script src="{% static 'js/municipionac.js' %}"></script>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 3 column -->
+                    <!-- 2 column  -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Fecha de alta</label>
+                                <input type="date" id="txtfechalta" name="txtfechalta" class="form-control" value="{{empleado.FALTA}}"/>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Tipo de contrato</label>
+                                <select class="form-control" name="txttcont" id="txttcont"
+                                    data-live-search="true">
+                                    <option value="">{{empleado.TCONT}}</option>
+                                    <option value="indefinido"> Indefinido</option>
+                                    <option value="temporal"> Temporal</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 column  -->
+                    <!-- 2 column  -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1"></label>
+                                <input type="hidden" id="form7Example1" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <div class="form-outline" id="Fecha_Final" style="display: none;">
+                                    <label class="form-label" for="form7Example1">Fecha de Finalización</label>
+                                    <input type="date" id="txtffinal" name="txtffinal" class="form-control" name="txtffinal" value="{{empleado.FFINAL}}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 column  -->
+                    <script src="{% static 'js/fechafinaltemporal.js' %}"></script>
+                </div>
+                <!-- generales  -->
+
+
+                <!-- direccionpersonal start -->
+                <div id="direccionpersonal" class="tab-pane fade">
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Dirección</label>
+                                <input type="text" id="txtdirec" name="txtdirec" class="form-control" maxlength="100"  value="{{empleado.DEMP}}"/>
+
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Zona </label>
+                                <input type="text" id="txtzona" name="txtzona" class="form-control"
+                                    onkeypress="return validarNumero(event)" maxlength="2" value="{{empleado.ZONA}}" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 column -->
+                    <!-- 3 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Departamento de domicilio</label>
+                                <select class="form-control" id="id_depto_dom" name="id_depto_dom"  data-width="100%">
+                                    <option value="">{{empleado.DDOM}}</option>
+                                    <option value="alta_verapaz">Alta Verapaz</option>
+                                    <option value="baja_verapaz">Baja Verapaz</option>
+                                    <option value="chimaltenango">Chimaltenango</option>
+                                    <option value="chiquimula">Chiquimula</option>
+                                    <option value="el_progreso">El Progreso</option>
+                                    <option value="escuintla">Escuintla</option>
+                                    <option value="guatemala">Guatemala</option>
+                                    <option value="huehuetenango">Huehuetenango</option>
+                                    <option value="izabal">Izabal</option>
+                                    <option value="jalapa">Jalapa</option>
+                                    <option value="jutiapa">Jutiapa</option>
+                                    <option value="peten">Petén</option>
+                                    <option value="quetzaltenango">Quetzaltenango</option>
+                                    <option value="quiche">Quiché</option>
+                                    <option value="retalhuleu">Retalhuleu</option>
+                                    <option value="sacatepequez">Sacatepéquez</option>
+                                    <option value="san_marcos">San Marcos</option>
+                                    <option value="santa_rosa">Santa Rosa</option>
+                                    <option value="solola">Sololá</option>
+                                    <option value="suchitepequez">Suchitepéquez</option>
+                                    <option value="totonicapan">Totonicapán</option>
+                                    <option value="zacapa">Zacapa</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Municipio de domicilio</label>
+                                <select class="form-control" id="id_muni_dom" name="id_muni_dom" data-live-search="true">
+                                    <option value="">{{empleado.MDOM}}</option>
+                                </select>
+                                <script src="{% static 'js/municipiodire.js' %}"></script>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 3 column -->
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Número de teléfono de casa</label>
+                                <input type="text" id="txttelcasa" name="txttelcasa" class="form-control" maxlength="8"
+                                    onkeypress="return validarNumero(event)" value="{{empleado.TELCASA}}" />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Número de teléfono celular</label>
+                                <input type="text" id="txtcel" name="txtcel" class="form-control" maxlength="8"
+                                    onkeypress="return validarNumero(event)" value="{{empleado.CELCASA}}" />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Correo Eléctronico </label>
+                                <input type="email" id="txtcorreo" name="txtcorreo" class="form-control" value="{{empleado.EMAIL}}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 column -->
+                </div>
+                <!-- Direccion personal  -->
+
+                <!-- =====================================   Estudios  =====================================  -->
+                <div id="estudios" class="tab-pane fade">
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Nivel educativo</label>
+                                <select class="form-control" id="id_niveleducativo" name="id_niveleducativo" data-width="100%"
+                                    name="id_departamento_dpi">
+                                    <option value="">{{empleado.NEDUC}}</option>
+                                    <option value="primaria">Primaria</option>
+                                    <option value="basicos">Básicos</option>
+                                    <option value="diversificado">Diversificado</option>
+                                    <option value="universidad">Universidad</option>
+                                    <option value="postgrado">Postgrado</option>
+                                    <option value="maestria">Maestria</option>
+                                    <option value="doctorado">Doctorado</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Grado Académico</label>
+                                <select class="form-control" id="id_gradoacademico" name="id_gradoacademico" data-live-search="true">
+                                    <option value="">{{empleado.GRAC}}</option>
+                                </select>
+                                <script src="{% static 'js/nivelestudios.js' %}"></script>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 column  -->
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Nombre del centro educativo</label>
+                                <input type="text" id="txtcenedu" name="txtcenedu" class="form-control" maxlength="100" value="{{empleado.NOMCENTRO}}" />
+
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Observaciones </label>
+                                <input type="text" id="txtobser"  name="txtobser" class="form-control" maxlength="100" value="{{empleado.OBSER}}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 column -->
+                </div>
+                <!-- =====================================   Estudios  =====================================  -->
+
+
+
+                <!-- =====================================  Familiares =====================================  -->
+
+                <div id="familiares" class="tab-pane fade">
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Parentesco</label>
+                                <select class="form-control" id="id_Lista1" name="id_Lista1" onchange="actualizarListas()" 
+                                    data-width="100%">
+                                    <option value="">{{empleado.PAR_1}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Nombres</label>
+                                <input type="text" id="txtnompar"  name="txtnompar" class="form-control" maxlength="35" value="{{empleado.PNOM1}}"/>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Apellidos </label>
+                                <input type="text" id="txtapepar" name="txtapepar" class="form-control" maxlength="35" value="{{empleado.PAPE1}}" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 column -->
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Dirección</label>
+                                <input type="text" id="txtdirepar" name="txtdirepar" class="form-control" maxlength="100" value="{{empleado.PDIRE1}}"/>
+
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Teléfono </label>
+                                <input type="text" id="txttelpar" name="txttelpar" class="form-control"
+                                    onkeypress="return validarNumero(event)" maxlength="8" value="{{empleado.PTEL1}}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 column -->
+                    <hr style="border: 2px solid black;">
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Parentesco</label>
+                                <select class="form-control" id="id_Lista2" name="id_Lista2" onchange="actualizarListas()"
+                                    data-width="100%">
+                                    <option value="">{{empleado.PAR2}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Nombres</label>
+                                <input type="text" id="txtnompar1" name="txtnompar1" class="form-control" maxlength="35" value="{{empleado.PNOM2}}"/>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Apellidos </label>
+                                <input type="text" id="txtapepar1" name="txtapepar1" class="form-control" maxlength="35" value="{{empleado.PAPE2}}" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 column -->
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Dirección</label>
+                                <input type="text" id="txtdirepar1" name="txtdirepar1" class="form-control" maxlength="100" value="PDIRE2"/>
+
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Teléfono </label>
+                                <input type="text" id="txttelpar1" name="txttelpar1" class="form-control"
+                                    onkeypress="return validarNumero(event)" maxlength="8" value="{{empleado.PTEL2}}" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 column -->
+                    <hr style="border: 2px solid black;">
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Parentesco</label>
+                                <select class="form-control" id="id_Lista3" name="id_Lista3" onchange="actualizarListas()"
+                                    data-width="100%">
+                                    <option value="">{{empleado.PAR_3}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Nombres</label>
+                                <input type="text" id="txtnompar2" name="txtnompar2" class="form-control" maxlength="35" value="{{empleado.PNOM3}}" />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Apellidos </label>
+                                <input type="text" id="txtapepar2" name="txtapepar2" class="form-control" maxlength="35" value="{{empleado.PAPE3}}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 column -->
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Dirección</label>
+                                <input type="text" id="txtdirepar2" name="txtdirepar2" class="form-control" maxlength="100" value="{{empleado.PDIRE3}}"/>
+
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Teléfono </label>
+                                <input type="text" id="txttelpar2" name="txttelpar2" class="form-control"
+                                    onkeypress="return validarNumero(event)" maxlength="8" value="{{empleado.PTEL3}}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 column -->
+
+
+                </div>
+                <!-- ===================================== Familiares  =====================================  -->
+
+
+
+
+
+                <!-- ===================================== Antecedentes Penales =====================================  -->
+                <div id="penales" class="tab-pane fade">
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">No. Boleta Electronica / No. serie</label>
+                                <input type="text" class="form-control" maxlength="20" id="txtnnpenal" name="txtnnpenal" value="{{empleado.NOSERPEN}}"/>
+                            </div>
+                        </div>
+
+
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label">Fecha de emisión</label>
+                                <input type="date" id="fechapenales" name="fechapenales" class="form-control" value="{{empleado.FEMPEN}}"
+                                    onchange="calcularFechaVencimiento()" />
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label">Fecha de vencimiento</label>
+                                <input type="date" id="fechavenpenal" name="fechavenpenal" class="form-control" />
+                            </div>
+                        </div>
+                        <script src="{% static 'js/fechavenpenal.js' %}"></script>
+                    </div>
+                    <!-- 2 column -->
+
+                </div>
+                <!-- ===================================== Antecedentes Penales =====================================  -->
+
+                <!-- ===================================== Antecedentes Policiales =====================================  -->
+                <div id="policiales" class="tab-pane fade">
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">No. Boleta Electronica / No. serie</label>
+                                <input type="text" class="form-control" maxlength="20" id="txtnnpolicial" name="txtnnpolicial" value="{{empleado.NOSERPOL}}"/>
+                            </div>
+                        </div>
+
+
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label">Fecha de emisión</label>
+                                <input type="date" id="fechapoliciales" name="fechapoliciales" class="form-control" value="{{empleado.FEMPOL}}"
+                                    onchange="calcularFechaVen()" />
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label">Fecha de vencimiento</label>
+                                <input type="date" id="fechavenpoli" name="fechavenpoli" class="form-control" />
+                            </div>
+                        </div>
+                        <script src="{% static 'js/fechavenpolicial.js' %}"></script>
+                    </div>
+                    <!-- 2 column -->
+
+                </div>
+                <!-- ===================================== Antecedentes Policiales =====================================  -->
+
+                <!-- ===================================== Otros Datos =====================================  -->
+                <div id="otrosdatos" class="tab-pane fade">
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Grupo poblacional</label>
+                                <select class="form-control" id="id_Gpobla" name="id_Gpobla" data-width="100%">
+                                    <option value="">{{empleado.GRUPO}}</option>
+                                    <option value="garifuna">Garífuna</option>
+                                    <option value="ladino">Ladino</option>
+                                    <option value="maya">Maya</option>
+                                    <option value="xinca">Xinca</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Comunidad Lingüistica</label>
+                                <select class="form-control" id="id_comLin" name="id_comLin" data-width="100%">
+                                    <option value="">{{empleado.COMLIN}}</option>
+                                    <option value="achi">ACHI</option>
+                                    <option value="akateko">AKATEKO</option>
+                                    <option value="awakateko">AWAKATEKO</option>
+                                    <option value="chalchiteko">CHALCHITEKO</option>
+                                    <option value="ch'orti'">CH'ORTI'</option>
+                                    <option value="chuj">CHUJ</option>
+                                    <option value="español">ESPAÑOL</option>
+                                    <option value="garifuna">GARIFUNA</option>
+                                    <option value="itzaj">ITZAJ</option>
+                                    <option value="ixil">IXIL</option>
+                                    <option value="kaqchikel">KAQCHIKEL</option>
+                                    <option value="k'iche'">K'ICHE'</option>
+                                    <option value="mam">MAM</option>
+                                    <option value="mopan">MOPAN</option>
+                                    <option value="popti' (jakalteko)">POPTI' (JAKALTEKO)</option>
+                                    <option value="poqomam">POQOMAM</option>
+                                    <option value="poqomchi'">POQOMCHI'</option>
+                                    <option value="q'anjob'al">Q'ANJOB'AL</option>
+                                    <option value="q'eqchi'">Q'EQCHI'</option>
+                                    <option value="sakapulteko">SAKAPULTEKO</option>
+                                    <option value="sipakapense">SIPAKAPENSE</option>
+                                    <option value="tektiteko">TEKTITEKO</option>
+                                    <option value="tz'utujil">TZ'UTUJIL</option>
+                                    <option value="uspanteko">USPANTEKO</option>
+                                    <option value="xinka">XINKA</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label">Afiliación IGSS</label>
+                                <input type="text" id="txtAigss" name="txtAigss" class="form-control"
+                                    onkeypress="return validarNumero(event)" maxlength="13" value="{{empleado.AIGSS}}" />
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label">NIT</label>
+                                <input type="text" id="txtNIT" name="txtNIT" class="form-control" maxlength="13" value="{{empleado.ANIT}}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 column -->
+
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label">Afiliación IRTRA</label>
+                                <input type="text" id="txtAirta"  name="txtAirta" class="form-control"
+                                    onkeypress="return validarNumero(event)" maxlength="13" value="{{empleado.AIRTRA}}" />
+                            </div>
+                        </div>
+
+
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Prof / Oficio</label>
+                                <input type="text" id="txtoficio"  name="txtoficio" class="form-control" maxlength="30" value="{{empleado.POFICIO}}" />
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Tipo de expediente</label>
+                                <select class="form-control" id="id_tipo_exp"  name="id_tipo_exp" data-width="100%"
+                                    name="id_tipo_exp" >
+                                    <option value="">{{empleado.TEXPE}}</option>
+                                    <option value="Administracion">Administración</option>
+                                    <option value="Operativo">Operativo</option>
+                                    <option value="Supervisores">Supervisores</option>
+                                    <option value="Otros_Servicios">Otros Servicios</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example1">Puesto</label>
+                                <select class="form-control" id="id_puesto_exp"  name="id_puesto_exp"  data-live-search="true">
+                                    <option value="">{{empleado.PEMPLE}}</option>
+                                </select>
+                                <script src="{% static 'js/tipoExp.js' %}"></script>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2 column -->
+
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Tipo Licencia</label>
+                                <select class="form-control" id="id_tipoLic" name="id_tipoLic" data-width="100%">
+                                    <option value="">{{empleado.TLIC}}</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="M">M</option>
+                                    <option value="E">E</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label">No. Licencia</label>
+                                <input type="text" id="txtNLic"  name="txtNLic" class="form-control"
+                                    onkeypress="return validarNumero(event)" maxlength="13" value="{{empleado.NOLIC}}" />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label">Fecha de vencimiento Licencia</label>
+                                <input type="date" id="fechavenlic" name="fechavenlic" class="form-control" value="{{empleado.FVLIC}}"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label">Salario Base Mensual</label>
+                                <input type="text" id="txtSalbm" name="txtSalbm" class="form-control" placeholder="Q 0000.00"
+                                    onkeypress="return validarSueldo(event)" maxlength="7" value="{{empleado.SBM}}"/>
+                            </div>
+                        </div>
+
+
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Bonificación Incentivo</label>
+                                <input type="text" id="txtboninc" name="txtboninc" class="form-control" maxlength="7"
+                                    onkeypress="return validarSueldo(event)" placeholder="Q 000.00" value="{{empleado.BINC}}"/>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Jornada Laboral</label>
+                                <select class="form-control" id="id_jorlab"  name="id_jorlab" data-width="100%">
+                                    <option value="">{{empleado.JORLAB}}</option>
+                                    <option value="Diurna">Diurna</option>
+                                    <option value="Mixta">Mixta</option>
+                                    <option value="NESALDLJ">No esta sujeto a las limitaciones de la jornada</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label" for="form7Example2">Tipo de Pago</label>
+                                <select class="form-control" id="id_tipopag" name="id_tipopag" data-width="100%">
+                                    <option value="">{{empleado.TIPAGO}}</option>
+                                    <option value="Mensual">Mensual</option>
+                                    <option value="Quincenal">Quincenal</option>
+                                    <option value="Semanal">Semanal</option>
+                                    <option value="Diario">Diario</option>
+                                    <option value="Hora">Hora</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2 column -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label">Estatus</label>
+                                <select class="form-control" id="txtestaCliente" name="txtestaCliente" 
+                                    data-width="100%">
+                                    <option value="">{{empleado.ESTATUS}}</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <label class="form-label">Motivo Baja</label>
+                                <input type="text" id="fechapoliciales" class="form-control" maxlength="500" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-outline">
+
+                            <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search"> <span
+                                    class="glyphicon glyphicon-search"></span>Actualizar</button>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                    <!-- ===================================== Otros Datos =====================================  -->
+                </div>
+                <!-- ===================================== Otros Datos =====================================  -->
+
+
+        </form>
+
+    </div>
+
+
+<!-- ===================================== Seccion Contenedor Final ======================================== -->
+</div>
+<!-- ===================================== Seccion Contenedor Final ======================================== -->
+
+
+</body>
+
+</html>
+{%endblock%}

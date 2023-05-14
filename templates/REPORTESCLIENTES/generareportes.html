@@ -1,0 +1,72 @@
+{% extends 'BASE/base.html'%}
+{% load static %}
+{% block title%}Gestión | Clientes{%endblock%}
+{% block content %}
+<link href="{% static 'css/registroClientes.css' %}" rel="stylesheet" type="text/css" />
+<!-- Page content holder -->
+<div class="page-content p-5" id="content">
+    <!-- ==== Toggle button start === -->
+    <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i
+            class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Menú</small></button>
+    <!-- ==== Toggle button end === -->
+    <!-- ===================================== Seccion Contenedor Inicio ======================================== -->
+    <div class="container" id="advanced-search-form">
+        <h2 >Gestión de Reportes Clientes</h2>
+            <!-- 2 column -->
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+                    </div>
+                        <label class="form-label"><h2> Generar Reportes en General</h2></label>
+                </div>
+                <div> 
+                    <a href="{%url 'reportesClientes' %}" class="btn btn-info btn-lg btn-responsive" target="_blank"> <span
+                        class="glyphicon glyphicon-search"></span>Generar PDF</a>
+                </div>
+            </div>
+            <!-- 2 column  -->
+
+            <!-- 2 column -->
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+                        <label class="form-label"><h3> Generar Reportes por fecha</h3></label>
+                    </div>
+                </div>
+            </div>
+            <!-- 2 column  -->
+            <!-- 2 column -->
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+                        <form method="GET" action="{% url 'reportespormes' %}" target="_blank">
+                        {% csrf_token %}
+                        <label class="form-label">Fecha de Inicio</label>
+                        <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control" required />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <label class="form-label">Fecha Final</label>
+                        <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" required/>
+                    </div>
+                </div>
+            </div>
+            <!-- 2 column  -->
+
+
+            <div class="clearfix"></div>
+            <div class="row">
+
+                <button type="submit" class="btn btn-info btn-lg btn-responsive" id="search" target="_blank"> <span
+                        class="glyphicon glyphicon-search" ></span>Generar PDF</button>
+
+            </div>
+        </form>
+    </div>
+
+</div>
+</body>
+
+</html>
+{%endblock%}

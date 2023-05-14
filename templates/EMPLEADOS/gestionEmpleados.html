@@ -1,0 +1,64 @@
+{% extends 'BASE/base.html'%}
+{% load static %}
+{% block title%}Gestión | Empleados {%endblock%}
+{% block content %}
+<!-- Page content holder -->
+<div class="page-content p-5" id="content">
+    <!-- ==== Toggle button start === -->
+    <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i
+            class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Menú</small></button>
+    <!-- ==== Toggle button end === -->
+    <!-- ===================================== Seccion Contenedor Inicio ======================================== -->
+
+
+    <div class="container rounded mt-5 bg-white p-md-5">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2><b>Listado Empleados</b></h2>
+                </div>
+                <div class="col-sm-6">
+                    <a href="{% url 'registrarEmpleados'%}" class="btn btn-success" ><i class="material-icons">&#xE147;</i> <span><h6>Agregar Nuevos Empleados</h6></span></a>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Foto</th>                       
+                        <th scope="col">Primer Nombre</th>
+                        <th scope="col">Segundo Nombre</th>
+                        <th scope="col">Primer Apellido</th>
+                        <th scope="col">Segundo Apellido</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Estatus</th>
+                        <th scope="col">Acción</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Recorremos los registros de la tabla 'contactos' y los mostramos -->
+                    {% for empleado in ListEmpleados %}
+                    <tr class="bg-blue">
+                        <td class="pt-3">{{empleado.ID_EMP}}</td>
+                        <td class="pt-3"><img src="{{empleado.FOTO.url}}" width="50" height="50"></td>
+                        <td class="pt-3">{{empleado.PNOM}}</td>
+                        <td class="pt-3 mt-1">{{empleado.SNOM}}</td>
+                        <td class="pt-3">{{empleado.PAPE}}</td>
+                        <td class="pt-3">{{empleado.SAPE}}</td>
+                        <td class="pt-3">{{empleado.CELCASA}}</td>
+                        <td class="pt-3 mt-1">{{empleado.ESTATUS}}</td>
+                        <td><a href="{% url 'editarEmpleados' empleado.ID_EMP %}" class="btn btn-info">Editar</a></td>                      
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+{%endblock%}

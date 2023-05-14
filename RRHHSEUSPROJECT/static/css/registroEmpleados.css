@@ -1,0 +1,27 @@
+.boton-tab {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #0c0000;
+    background-color: #c3daee;
+    border-color: #2e6da4;
+    margin-right: 10px;
+}
+
+
+.boton-color.active,
+.boton-color:active,
+.boton-color:hover {
+    background-color: rgb(50, 4, 216);
+    color: #fff;
+}

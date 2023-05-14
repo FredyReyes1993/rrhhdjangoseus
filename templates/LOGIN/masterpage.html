@@ -1,0 +1,36 @@
+{% extends 'BASE/base.html' %}
+{% load static %}
+
+{% block content %}
+
+  <!-- Page content holder -->
+  <div class="page-content p-5" id="content">
+    <!-- Toggle button -->
+    <button id="sidebarCollapse" type="button" 
+    class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Menú</small></button>
+  
+    <!-- Demo content -->
+
+
+
+    <h3 class="display-4 text-white">Servicios Unidos de Seguridad, S. A.</h3>
+    </p>
+    <div class="separator"></div>
+
+    <div class="row text-white">
+      <div class="pic-ctn">
+        <img  id="img1" src="{% static 'images/LogoSeus.png' %}" alt="" class="pic">
+        <img  id="img2" src="{% static 'images/images1.png' %}" alt="" class="pic">
+        <img  id="img3" src="{% static 'images/images2.png' %}" alt="" class="pic">
+        <img  id="img4" src="{% static 'images/images3.png' %}" alt="" class="pic">
+      </div>
+    </div>
+    
+
+  </div>
+  <!-- End demo content -->
+
+</body>
+</html>
+
+{%endblock%}

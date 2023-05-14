@@ -1,0 +1,77 @@
+
+#advanced-search-form{
+    background-color: #fff;
+    max-width: 900px;
+    margin: 2px auto 0;
+    padding: 10px;
+    color: #00090e;
+    font-weight: bold;
+    box-shadow: 30px 30px 80px black;
+}
+
+#advanced-search-form h2{
+    padding-bottom: 20px;
+    margin: 10px 20px;
+    font-size: 24px;
+    text-align: center;
+}
+
+#advanced-search-form hr{
+    margin-top: 38px;
+    margin-bottom: 54px;
+    margin-left:3px;
+    border: 20px solid #110101;
+
+}
+
+#advanced-search-form .form-group{
+	margin-bottom: 20px;
+    margin-left:20px;
+	width: 30%;
+    float:left;
+    text-align: left;
+}
+
+#advanced-search-form .form-control{
+    padding: 12px 20px;
+    height: auto;
+    border-radius: 20px;
+    border-width: 5px;
+}
+
+
+#advanced-search-form .gender{
+    width: 30%;
+    margin-top: 30px;
+    padding-left: 20px
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#advanced-search-form .btn{
+    width: 46%;
+    margin: 20px auto 0;
+    display: block;
+    outline: none;
+}
+
+@media screen and (max-width: 800px){
+    #advanced-search-form .form-group{
+        width: 45%;
+    }
+
+    #advanced-search-form{
+        margin-top: 0;
+    }
+}
+
+@media screen and (max-width: 560px){
+    #advanced-search-form .form-group{
+        width: 100%;
+        margin-left: 0;
+    }
+
+    #advanced-search-form h2{
+        text-align: center;
+    }
+}
